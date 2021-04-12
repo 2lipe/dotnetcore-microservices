@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MongoDB.Driver;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Catalog.Api.Repositories
         
         public ProductRepository(ICatalogContext catalogContext)
         {
-            _catalogContext = catalogContext;
+            _catalogContext = catalogContext ?? throw new ArgumentException(nameof(catalogContext));
         }
         
         public async Task<IEnumerable<Product>> GetProducts()

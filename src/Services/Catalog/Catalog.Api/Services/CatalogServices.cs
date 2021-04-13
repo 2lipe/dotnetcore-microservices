@@ -1,25 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Api.Entities;
+using Catalog.Api.Repositories;
 
 namespace Catalog.Api.Services
 {
     public class CatalogServices : ICatalogServices
     {
-        private readonly ICatalogServices _catalogServices;
+        private readonly IProductRepository _productRepository;
         
-        public CatalogServices(ICatalogServices catalogServices)
+        public CatalogServices(IProductRepository productRepository)
         {
-            _catalogServices = catalogServices;
+            _productRepository = productRepository;
         }
         
         public async Task<IEnumerable<Product>> GetCatalogProducts()
         {
             try
             {
-                var products = await _catalogServices.GetCatalogProducts();
+                var products = await _productRepository.GetProducts();
                 
                 return products;
             }
@@ -29,11 +29,11 @@ namespace Catalog.Api.Services
             }
         }
 
-        public async Task<Product> GetCatalogProduct(string id)
+        public async Task<Product> GetCatalogProductById(string id)
         {
             try
             {
-                var product = await _catalogServices.GetCatalogProduct(id);
+                var product = await _productRepository.GetProduct(id);
 
                 return product;
             }
@@ -47,7 +47,7 @@ namespace Catalog.Api.Services
         {
             try
             {
-                var product = await _catalogServices.GetCatalogProductByName(name);
+                var product = await _productRepository.GetProductByName(name);
 
                 return product;
             }
@@ -61,7 +61,7 @@ namespace Catalog.Api.Services
         {
             try
             {
-                var product = await _catalogServices.GetCatalogProductByCategory(category);
+                var product = await _productRepository.GetProductByCategory(category);
 
                 return product;
             }
@@ -71,13 +71,11 @@ namespace Catalog.Api.Services
             }
         }
 
-        public async Task<Product> CreateCatalogProduct(Product data)
+        public async Task CreateCatalogProduct(Product data)
         {
             try
             {
-                var product = await _catalogServices.CreateCatalogProduct(data);
-
-                return product;
+                await _productRepository.CreateProduct(data);
             }
             catch (Exception e)
             {
@@ -89,7 +87,7 @@ namespace Catalog.Api.Services
         {
             try
             {
-                await _catalogServices.UpdateCatalogProduct(product);
+                await _productRepository.UpdateProduct(product);
 
                 return true;
             }
@@ -103,7 +101,7 @@ namespace Catalog.Api.Services
         {
             try
             {
-                await _catalogServices.DeleteCatalogProduct(id);
+                await _productRepository.DeleteProduct(id);
 
                 return true;
             }

@@ -7,10 +7,10 @@ namespace Catalog.Api.Services
     public interface ICatalogServices
     {
         Task<IEnumerable<Product>> GetCatalogProducts();
-        Task<Product> GetCatalogProduct(string id);
+        Task<Product> GetCatalogProductById(string id);
         Task<IEnumerable<Product>> GetCatalogProductByName(string name);
         Task<IEnumerable<Product>> GetCatalogProductByCategory(string category);
-        Task<Product> CreateCatalogProduct(Product product);
+        Task CreateCatalogProduct(Product product);
         Task<bool> UpdateCatalogProduct(Product product);
         Task<bool> DeleteCatalogProduct(string id);
     }

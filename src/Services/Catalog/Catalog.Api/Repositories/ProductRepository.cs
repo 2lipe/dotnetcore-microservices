@@ -10,12 +10,12 @@ namespace Catalog.Api.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly ICatalogContext _catalogContext;
-        
+
         public ProductRepository(ICatalogContext catalogContext)
         {
             _catalogContext = catalogContext ?? throw new ArgumentException(nameof(catalogContext));
         }
-        
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _catalogContext.Products.Find(p => true).ToListAsync();

@@ -65,11 +65,11 @@ namespace Catalog.Api.Controllers
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(Product), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateProduct([FromBody] Product product)
+        public async Task<IActionResult> UpdateProduct(string id, [FromBody] Product product)
         {
-             return Ok(await _catalogServices.UpdateCatalogProduct(product));
+             return Ok(await _catalogServices.UpdateCatalogProduct(id, product));
         }
 
         [HttpDelete("{id}")]

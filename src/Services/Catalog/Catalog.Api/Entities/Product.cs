@@ -1,3 +1,6 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Catalog.Api.Entities
 {
     public class Product : BaseEntity

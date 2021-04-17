@@ -45,10 +45,10 @@ namespace Catalog.Api.Repositories
             await _catalogContext.Products.InsertOneAsync(product);
         }
 
-        public async Task<bool> UpdateProduct(Product product)
+        public async Task<bool> UpdateProduct(string id, Product product)
         {
             var updatedResult =
-                await _catalogContext.Products.ReplaceOneAsync(p => p.Id == product.Id, product);
+                await _catalogContext.Products.ReplaceOneAsync(p => p.Id.Equals(product.Id), product, new UpdateOptions { IsUpsert = true });
 
             return updatedResult.IsAcknowledged && updatedResult.ModifiedCount > 0;
         }

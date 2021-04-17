@@ -11,7 +11,7 @@ namespace Catalog.Api.Services
         Task<IEnumerable<Product>> GetCatalogProductByName(string name);
         Task<IEnumerable<Product>> GetCatalogProductByCategory(string category);
         Task CreateCatalogProduct(Product product);
-        Task<bool> UpdateCatalogProduct(Product product);
+        Task<bool> UpdateCatalogProduct(string id, Product product);
         Task<bool> DeleteCatalogProduct(string id);
     }
 }

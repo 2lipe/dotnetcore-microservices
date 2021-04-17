@@ -83,11 +83,11 @@ namespace Catalog.Api.Services
             }
         }
 
-        public async Task<bool> UpdateCatalogProduct(Product product)
+        public async Task<bool> UpdateCatalogProduct(string id, Product product)
         {
             try
             {
-                await _productRepository.UpdateProduct(product);
+                await _productRepository.UpdateProduct(id, product);
 
                 return true;
             }

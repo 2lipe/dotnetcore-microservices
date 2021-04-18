@@ -1,3 +1,5 @@
+using Basket.Api.Repositories;
+using Basket.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,9 @@ namespace Basket.Api
                 var connectionString = Configuration.GetValue<string>("CacheSettings:ConnectionString");
                 options.Configuration = connectionString;
             });
+
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

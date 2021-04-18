@@ -11,7 +11,7 @@ namespace Basket.Api.Services
 
         public BasketService(IBasketRepository basketRepository)
         {
-            _basketRepository = basketRepository;
+            _basketRepository = basketRepository ?? throw new ArgumentException(nameof(basketRepository));
         }
 
         public async Task<ShoppingCart> GetBasketByUserName(string userName)

@@ -11,7 +11,7 @@ namespace Discount.Api.Services
 
         public DiscountService(IDiscountRepository discountRepository)
         {
-            _discountRepository = discountRepository;
+            _discountRepository = discountRepository ?? throw new ArgumentException(nameof(discountRepository));
         }
 
         public async Task<Coupon> GetProductDiscount(string productName)

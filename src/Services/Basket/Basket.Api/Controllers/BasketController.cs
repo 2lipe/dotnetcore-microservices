@@ -12,10 +12,12 @@ namespace Basket.Api.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketService _basketService;
+        private readonly IDiscountGrpcService _discountGrpcService;
 
-        public BasketController(IBasketService basketService)
+        public BasketController(IBasketService basketService, IDiscountGrpcService discountGrpcService)
         {
             _basketService = basketService ?? throw new ArgumentException(nameof(basketService));
+            _discountGrpcService = discountGrpcService ?? throw new ArgumentException(nameof(discountGrpcService));
         }
         
         [HttpGet("{userName}", Name = "GetBasket")]
@@ -33,6 +35,12 @@ namespace Basket.Api.Controllers
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
         {
+            foreach (var item in basket.Items)
+            {
+                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
+                item.Price -= coupon.Amount;
+            }
+            
             var newBasket = await _basketService.UpdateBasket(basket);
 
             return Ok(newBasket);

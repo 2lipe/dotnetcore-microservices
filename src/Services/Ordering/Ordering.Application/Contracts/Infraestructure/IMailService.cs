@@ -3,7 +3,7 @@ using Ordering.Application.Models;
 
 namespace Ordering.Application.Contracts.Infraestructure
 {
-    public interface IEmailService
+    public interface IMailService
     {
         Task<bool> SendEmail(Email email);
     }

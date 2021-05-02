@@ -1,10 +1,10 @@
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Persistence;
+using Ordering.Application.Exceptions;
 using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
@@ -31,7 +31,7 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 
             if (orderToUpdate == null)
             {
-                throw new FileNotFoundException($"Order with: {request.Id} was not found.");
+                throw new NotFoundException(nameof(Order), request.Id);
             }
 
             _mapper.Map(request, orderToUpdate, typeof(UpdateOrderCommand), typeof(Order));
